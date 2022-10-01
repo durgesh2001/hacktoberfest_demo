@@ -1,8 +1,6 @@
 class Solution {
 public:
 
-    //APPROACH #2 AND #3 ARE ON GFG
-    //APPROACH #1 - APNA METHOD 
     
     //visits the whole graph and marks all elements as visited
     //here i have used depth first search in matrix itself
