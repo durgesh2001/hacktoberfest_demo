@@ -1,0 +1,72 @@
+class Solution {
+public:
+    
+    void dfs(int i, int j ,vector<vector<char>>&board,vector<vector<int>>&visited,int n, int m)
+    {
+        visited[i][j]=1;
+        
+        //check in all 4 directions
+        vector<int> delta = {0,1,0,-1,0};
+        for(int k=0;k<4;k++)
+        {
+            int nrow = i+delta[k];
+            int ncol = j+delta[k+1];
+            
+            if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && visited[nrow][ncol]==0 && board[nrow][ncol]=='O')
+                dfs(nrow,ncol,board,visited,n,m);
+        }
+    }
+    
+    void solve(vector<vector<char>>& board) {
+ 
+        // LOGIC -> JUST MARK ALL THOSE NODES WHICH ARE CONNECT TO THE BOUNDARY , SO THEY CAN NEVER BE SURROUNDED BY X ON ALL THE 4 SIDES 
+        
+        // make a traversal on boundary of matrix and if O found call dfs and mark visited connected to it
+        // we just need to traverse the complete graph so we can use any algorithm 
+        // either bfs or dfs
+        
+        int n = board.size();
+        int m = board[0].size();
+        vector<vector<int>> visited(n,vector<int>(m,0));
+        //we can also make changes in the same matrix as well or use dummy matrix for answer
+        
+        //BOUNDARY TRAVERSAL
+        for(int i=0;i<m;i++)
+        {
+            //first row
+             if(board[0][i]=='O' && !visited[0][i])
+                dfs(0,i,board,visited,n,m);
+        
+            //last row
+            if(board[n-1][i] == 'O' && !visited[n-1][i])
+                dfs(n-1,i,board,visited,n,m);
+        }
+       
+        
+     
+        
+        for(int i = 0 ;i<n ;i++)
+        {
+            //first column
+            if(board[i][0] == 'O' && !visited[i][0])
+                dfs(i,0,board,visited,n,m);
+        
+            //last column
+            if(board[i][m-1] == 'O' && !visited[i][m-1])
+                dfs(i,m-1,board,visited,n,m);
+        }
+            
+        
+        //AFTER MARKING ALL THE O'S TOUCHING THE BOUNDAY WE TRAVERSE AGAIN IN WHOLE MATRIX AND TURN ALL REMAINING O TO X
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(board[i][j]=='O' && !visited[i][j])
+                    board[i][j]='X';
+            }
+                
+        }
+        
+    }
+};
