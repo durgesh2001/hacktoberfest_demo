@@ -1,0 +1,67 @@
+class Solution {
+
+    // WITHOUT USING A VISITED MATRIX IN O(1) SPACE - SAME COPIED THE CODE WITH SOME TWEAKS
+    
+     private:
+    
+    void bfs(int i,int j,vector<vector<char>>&grid,int totalrows,int totalcols)
+    {
+        grid[i][j] = 0 ; // mark it visited which is passed , here we are making changes in the same matrix 
+        queue<pair<int,int>> q; // queue of pair of i and j
+        q.push({i,j});
+        
+        while(!q.empty())
+        {
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            
+            //now check for all the four directions of this row and column
+            //mark it visited and push in queue
+            
+            vector<int> delta = {0,1,0,-1,0};  //we can also make a pair of indexes
+            
+            for(int k= 0;k<4;k++)
+            {
+                int nrow = row+delta[k];
+                int ncol = col + delta[k+1];
+                
+                //check validity of n row and n col
+                if(nrow>=0 && nrow<totalrows && ncol>=0 && ncol<totalcols && grid[nrow][ncol]=='1')
+                {
+                    //mark as visited
+                    grid[nrow][ncol]=0;
+                    q.push({nrow,ncol});
+                }
+                
+            }
+           
+        }
+        
+    }
+    
+    public:
+    int numIslands(vector<vector<char>>& grid) {
+        
+        int n = grid.size();  //totalrows
+        int m = grid[0].size();   //totalcolumns
+        
+        int count = 0;
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    count++;
+                    bfs(i,j,grid,n,m);
+                }
+            }
+        }
+        
+        return count;
+    
+    
+    }
+};
