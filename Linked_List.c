@@ -1,10 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// Creating a Node
 struct Node{
     int data;
     struct Node* next;
 };
+
+// Inserting a node at the beginning
 struct Node* insert_at_beg(struct Node* head, int val){
     struct Node* x;
     x = (struct Node*)malloc(sizeof(struct Node));
@@ -13,6 +16,8 @@ struct Node* insert_at_beg(struct Node* head, int val){
     head = x;
     return head;
 }
+
+// Inserting a node at a specified position
 struct Node* insert(struct Node* head, int val, int pos){
     struct Node* temp = head;
     for(int i = 0; i < pos; ++i)
@@ -24,6 +29,8 @@ struct Node* insert(struct Node* head, int val, int pos){
     x -> data = val;
     return head; 
 }
+
+// Inserting a node at the end
 struct Node* insert_at_lst(struct Node* head, int val){
     struct Node* temp = head;
     while(temp -> next != NULL){
@@ -36,6 +43,8 @@ struct Node* insert_at_lst(struct Node* head, int val){
     x -> next = NULL;
     return head;
 }
+
+// Printing all the node values in the Linked List
 void print(struct Node* head){
     struct Node* temp = head;
     if(temp -> next == NULL){
@@ -47,6 +56,8 @@ void print(struct Node* head){
     }
     printf("\n");
 }
+
+// Switch case like statement to perform operations in Linked List as per User's choice
 int main(){
     int first;
     struct Node* head;
