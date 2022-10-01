@@ -1,5 +1,7 @@
 ## Welcome to Hacktober Fest 
 
+<img src="https://user-images.githubusercontent.com/87039911/193401466-d4ab9f34-fb9e-4416-acdd-f9b30b9284b7.png">
+
 • EVERYONE IS WELCOME    
 • QUANTITY IS FUN, QUALITY IS KEY    
 • SHORT-TERM ACTION, LONG-TERM IMPACT    
