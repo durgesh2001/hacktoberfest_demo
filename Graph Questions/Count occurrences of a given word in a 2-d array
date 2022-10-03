@@ -1,0 +1,55 @@
+class Solution{
+    public:
+    
+    int count =0 ;
+    
+    void dfs(int i,int j,vector<vector<char>> &mat,string&target,int z)
+    {
+    // if we go out of scope of matrix or if the element in string does not match        
+        if(i<0 || j<0 || i>=mat.size() || j>=mat[i].size() || mat[i][j]!=target[z])
+            return;
+            
+
+    // if we found oour string then increase count and return
+    //this is a very important difference between this question and count word on leetcode
+    //this lines comes after the above lines
+    //bcz here we are counting the digits 
+    //and if we get the word we increase the count only one and return 
+    
+    //but on leetcode we have to check the true or flase condition
+    //so if(z==target.size()) also runs because if we go anywhere after that condition
+    //it will return true only
+    
+        if(z==target.size()-1)
+        {
+            count++;
+            return;
+        }
+        
+        //mark as visited
+        mat[i][j]='*';
+        
+        dfs(i-1,j,mat,target,z+1); //up
+        dfs(i,j+1,mat,target,z+1); //right
+        dfs(i,j-1,mat,target,z+1);  //left
+        dfs(i+1,j,mat,target,z+1);  //down
+        
+
+        // undo the changes done to matrix
+        mat[i][j]=target[z];
+            
+    }
+    
+    int findOccurrence(vector<vector<char> > &mat, string target){
+        
+        for(int i=0;i<mat.size();i++)
+        {
+            for(int j=0;j<mat[0].size();j++)
+            {
+                 if(mat[i][j]==target[0])
+                    dfs(i,j,mat,target,0);
+            }
+        }
+        
+        return count;
+    }
