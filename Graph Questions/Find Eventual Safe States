@@ -1,0 +1,98 @@
+class Solution {
+    private:
+        bool dfs(int i,vector<vector<int>> &graph,vector<int>&visited ,vector<int>&pathvisited)
+        {
+            visited[i]=1;
+            pathvisited[i]=1;
+           // check[i]=0;
+            
+            for(auto x:graph[i])
+            {
+                if(!visited[x]){
+                    if(dfs(x,graph,visited,pathvisited)==true)
+                    return true;
+                }
+                    else if(pathvisited[x])
+                        return true;
+            }
+            
+            // it will reach here only if it is not a cycle and mark it as 1 
+            //check[i]=1;
+            pathvisited[i]=0;
+            return false;
+            
+        }
+    
+    public:    
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        
+        //  USIN NORMAL DFS 
+        /*
+        int n = graph.size();
+        vector<int> safe;
+        
+        //vector<int> check(n,0);
+        
+        vector<int> visited(n,0);
+        vector<int> pathvisited(n,0);
+        
+        for(int i=0;i<n;i++)
+        {
+            if(!visited[i])
+                dfs(i,graph,visited,pathvisited);
+        }
+        
+        //we can also do it without the use of check array
+        for(int i=0;i<n;i++)
+        {
+            if(!pathvisited[i])safe.push_back(i);
+        }
+        
+        return safe;
+        
+        */
+        
+        //USING KAHN'S ALGORITHM ( TOPO SORT )
+        int n = graph.size();
+        vector<int> adjRev[n];
+        vector<int> indegree(n,0);
+        
+        //reverse the adjacency list 
+        for(int i=0;i<n;i++)
+        {
+            for(auto x:graph[i])
+            {
+                adjRev[x].push_back(i);
+                indegree[i]++;  //mark the indegree that is being pushed into the rev adj list
+            }
+        }
+        
+        queue<int> q;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(indegree[i]==0)q.push(i);
+        }
+        
+        vector<int> safe;
+        
+        while(!q.empty())
+        {
+            int p = q.front();
+            q.pop();
+            safe.push_back(p);
+            
+            // decrease the indegree of all nodes connected with this node
+            for(auto x:adjRev[p])
+            {
+                indegree[x]--;
+                if(indegree[x]==0)
+                    q.push(x);
+            }
+        }
+        
+        sort(safe.begin(),safe.end());
+        return safe;
+        
+    }
+};
