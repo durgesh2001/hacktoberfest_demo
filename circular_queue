@@ -1,0 +1,119 @@
+// This program demonstrates the insertion and deletion operations in a Circular Queue
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Queue
+{
+	int rear, front;
+
+	int size;
+	int *arr;
+    public:
+	    Queue(int s)
+	    {
+	        front = rear = -1;
+	        size = s;
+	        arr = new int[s];
+	    }
+	void Enqueue(int value_x);
+	int Dequeue();
+	void disp();
+  
+  };
+
+
+void Queue::Enqueue(int value_x)
+{
+	if ((front == 0 && rear == size-1) || (rear == (front-1)%(size-1)))
+	{
+		cout<<"\nQueue is Full";
+		return;
+	}
+
+	else if (front == -1)
+	{
+		front = rear = 0;
+		arr[rear] = value_x;
+	}
+
+	else if (rear == size-1 && front != 0)
+	{
+		rear = 0;
+		arr[rear] = value_x;
+	}
+
+	else
+	{
+		rear++;
+		arr[rear] = value_x;
+	}
+}
+
+int Queue::Dequeue()
+{
+	if (front == -1)
+	{
+		cout<<"\nQueue is Empty";
+		return INT_MIN;
+	}
+
+	int data = arr[front];
+	arr[front] = -1;
+	if (front == rear)
+	{
+		front = -1;
+		rear = -1;
+	}
+	else if (front == size-1) front = 0;
+	else front++;
+
+	return data;
+}
+
+void Queue::disp()
+{
+	if (front == -1)
+	{
+		cout<<"\nQueue is Empty";
+		return;
+	}
+	cout<<"\nElements in Circular Queue are: ";
+	if (rear >= front)
+	{
+		for (int i = front; i <= rear; i++) cout<<arr[i]<<" ";
+	}
+	else
+	{
+		for (int i = front; i < size; i++) cout<< arr[i]<<" ";
+
+		for (int i = 0; i <= rear; i++) cout<< arr[i]<<" ";
+	}
+}
+
+
+int main()
+{
+	Queue q(5);
+
+	q.Enqueue(72);
+	q.Enqueue(85);
+	q.Enqueue(4);
+	q.Enqueue(-13);
+
+	q.disp();
+
+	cout<<"\nDeleted element--> "<<q.Dequeue()<<"\nDeleted element--> "<<q.Dequeue();
+
+	q.disp();
+
+	q.Enqueue(32);
+	q.Enqueue(10);
+	q.Enqueue(7);
+
+	q.disp();
+	
+	q.Enqueue(45);
+	
+	return 0;
+}
