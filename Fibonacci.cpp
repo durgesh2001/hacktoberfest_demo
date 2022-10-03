@@ -38,7 +38,7 @@ int main() {
 
 
 
-BETTER APPROACH WITH HELP OF RECURSION
+//BETTER APPROACH WITH HELP OF RECURSION
 #include <iostream>
 using namespace std;
 int fib(int x) {
