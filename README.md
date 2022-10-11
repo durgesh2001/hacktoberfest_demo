@@ -1,3 +1,6 @@
+## Excluded fro Hactoberfest 2022
+
+
 ## Welcome to Hacktober Fest 
 
 • EVERYONE IS WELCOME    
